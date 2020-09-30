@@ -23,3 +23,8 @@ class BestsellersSpider(scrapy.Spider):
                 'glass_image': glass_image,
                 'try_on_image': tryon_image,
             }
+
+        next_page = response.xpath("//ul[@class='pagination']/li[6]/a/@href").get()
+
+        if next_page:
+            yield scrapy.Request(url=next_page, callback=self.parse)
